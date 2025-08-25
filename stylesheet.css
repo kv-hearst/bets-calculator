@@ -113,11 +113,12 @@ body {
         color: #000000;
         margin-bottom: 10px;
     }
-    team-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    .team-container {
         gap: 20px;
-    }
+        align-items: center;
+        justify-items: center;
+        text-align: center;
+      }
     button {
         background-color: whitesmoke;
         color: #333;
@@ -138,18 +139,25 @@ body {
         background-color: #ccc;
     }
     button.selected {
-        background-color: #4CAF50;
+        background-color: #1c58b8;
         color: white;
     }
     #calculate-button {
         margin-top: 20px;
-        background-color: #4CAF50;
+        background-color: #1c58b8;
         color: white;
+    }
+    #reset-button {
+        margin-top: 20px;
+        /* background-color: #f44336; */
+        border: 2px solid #333;
+        color: #333;
     }
     .results-container {
         margin-top: 20px;
         padding: 10px;
-        background-color: wheat;
+        border: 1px solid #ccc;
+        height: 200px;
     }
 
 .disabled {
@@ -161,4 +169,20 @@ body {
 
 button:disabled {
     pointer-events: none;
+}
+.button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.game button img {
+    width: 100px;
+    height: 100px;
+}
+
+img#logo {
+    display: block;
+    margin: left;
+    width: 30%;
+    height: auto;
 }

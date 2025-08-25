@@ -78,6 +78,38 @@ function loadTeams() {
     if (calculateButton) {
         calculateButton.addEventListener('click', calculateBet);
     }
+
+    const resetButton = document.getElementById('reset-button');
+    if (resetButton) {
+        resetButton.addEventListener('click', resetSelections);
+    }
+
+    displayTeamProbabilities();
+}
+
+function displayTeamProbabilities() {
+    if (rows.length === 0) {
+        setTimeout(() => displayTeamProbabilities(), 100);
+        return;
+    }
+    for (let i = 1; i <= 10; i++) {
+        const teamId = `team${i}`;
+        const textButtonElement = document.getElementById(`${teamId}-text`);
+        
+        if (textButtonElement) {
+            // Find the team data in the CSV rows
+            const teamData = rows.find(row => row[0] === teamId);
+            
+            if (teamData && teamData[3]) {
+                const impliedProbability = parseFloat(teamData[3]);
+                
+                // Update the text content to include probability
+                textButtonElement.innerHTML = `
+                <p>Team ${i}</p>
+                <p>Probability: ${impliedProbability.toFixed(2)}</p>`;
+            }
+        }
+    }
 }
 
 function toggleTeamSelection(teamId) {
@@ -170,6 +202,7 @@ function calculateBet() {
         const resultsElement = document.getElementById('results');
         if (resultsElement) {
             resultsElement.innerHTML = `
+                <h3>Results</h3>
                 <p>Selected Teams: ${selectedTeams.join(', ')}</p>
                 <p>Implied Probability: ${results.impliedProbability.toFixed(2)}%</p>
                 <p>Book Probability: ${results.bookProbability.toFixed(2)}%</p>
@@ -179,6 +212,27 @@ function calculateBet() {
     } else {
         alert('Error: Could not find data for all selected teams.');
     }
+}
+
+function resetSelections() {
+    console.log('Reset button clicked');
+
+    selectedTeams = [];
+ 
+    const allTeamButtons = document.querySelectorAll('[id^="team"]');
+    allTeamButtons.forEach(button => {
+        button.classList.remove('selected');
+        button.disabled = false;
+        button.classList.remove('disabled');
+    });
+
+    const resultsElement = document.getElementById('results');
+    if (resultsElement) {
+        resultsElement.innerHTML = `
+        <h3>Results</h3>`;
+    }
+    
+    console.log('All selections reset');
 }
 
 loadTeams();
