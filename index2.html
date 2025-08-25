@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bet calculator</title>
+
+	<link rel="stylesheet" href="stylesheet2.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <img src="gtf.png"  id="logo" alt="logo">
+    <div class="container">
+        <h1>How good is that bet, really?</h1>
+        <p>Let us test how bets are made by building a parlay of three below. Select three teams that you think have a better chance of winning based on their odds, then select "Calculate" to see how good your parlay really is.
+        </p>
+        <h3>Select three teams:</h3>
+        <div class="team-container">
+            <div class="game" id="game1">
+                <h3>Game 1</h3>
+                <button id="team1">
+                    <img src="https://placehold.co/100" alt="Team 1 Logo">
+                    <div text-button id="team1-text">Team 1
+                    </div>
+                </button>
+                
+                <button id="team2">
+                    <img src="https://placehold.co/100" alt="Team 2 Logo">
+                    <div text-button id="team2-text">Team 2
+                    </div>
+                </button>
+            </div>
+            <div class="game" id="game2">
+                <h3>Game 2</h3>
+                <button id="team3">
+                    <img src="https://placehold.co/100" alt="Team 3 Logo">
+                    <div text-button id="team3-text">Team 3
+                    </div>
+                </button>
+                <button id="team4">
+                    <img src="https://placehold.co/100" alt="Team 4 Logo">
+                    <div text-button id="team4-text">Team 4
+                    </div>
+                </button>
+            </div>
+            <div class="game" id="game3">
+                <h3>Game 3</h3>
+                <button id="team5">
+                    <img src="https://placehold.co/100" alt="Team 5 Logo">
+                    <div text-button id="team5-text">Team 5
+                    </div>
+                </button>
+                <button id="team6">
+                    <img src="https://placehold.co/100" alt="Team 6 Logo">
+                    <div text-button id="team6-text">Team 6
+                    </div>
+                </button>
+            </div>
+            <div class="game" id="game4">
+                <h3>Game 4</h3>
+                <button id="team7">
+                    <img src="https://placehold.co/100" alt="Team 7 Logo">
+                    <div text-button id="team7-text">Team 7
+                    </div>
+                </button>
+                <button id="team8">
+                    <img src="https://placehold.co/100" alt="Team 8 Logo">
+                    <div text-button id="team8-text">Team 8
+                    </div>
+                </button>
+            </div>
+            <div class="game" id="game5">
+                <h3>Game 5</h3>
+                <button id="team9">
+                    <img src="https://placehold.co/100" alt="Team 9 Logo">
+                    <div text-button id="team9-text">Team 9
+                    </div>
+                </button>
+                <button id="team10">
+                    <img src="https://placehold.co/100" alt="Team 10 Logo">
+                    <div text-button id="team10-text">Team 10
+                    </div>
+                </button>
+            </div>
+        </div>
+        <div class="button-container">
+        <button id="calculate-button">Calculate</button>
+        <button id="reset-button">Reset</button>
+        </div>
+        <div class="results-container" id="results">
+            <h3>Results</h3>
+
+        </div>
+    </div>
+
+
+<script src="betcalculator.js"></script>
+</body>
+</html>

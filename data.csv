@@ -1,11 +1,11 @@
-team,name,game,probability-implied,probability-book
-team1,New York Giants,1,0.406504065,0.3640392529
-team2,Washington Commanders,1,0.7101449275,0.6359607471
-team3,Tennessee Titans,2,0.2288329519,0.217554533
-team4,Denver Broncos,2,0.8230088496,0.782445467
-team5,Cincinnati Bengals,3,0.72899729,0.6796290991
-team6,Cleveland Browns,3,0.3436426117,0.3203709009
-team7,Pittsburgh Steelers,4,0.75,0.724137931
-team8,New York Jets,4,0.2857142857,0.275862069
-team9,Baltimore Ravens,5,0.5,0.4782608696
-team10,Buffalo Bills,5,0.5454545455,0.5217391304
+team,name,game,probability-implied,probability-book,money-odd-lines
+team1,New York Giants,1,0.406504065,0.3640392529,146
+team2,Washington Commanders,1,0.7101449275,0.6359607471,245
+team3,Tennessee Titans,2,0.2288329519,0.217554533,337
+team4,Denver Broncos,2,0.8230088496,0.782445467,465
+team5,Cincinnati Bengals,3,0.72899729,0.6796290991,269
+team6,Cleveland Browns,3,0.3436426117,0.3203709009,191
+team7,Pittsburgh Steelers,4,0.75,0.724137931,300
+team8,New York Jets,4,0.2857142857,0.275862069,250
+team9,Baltimore Ravens,5,0.5,0.4782608696,100
+team10,Buffalo Bills,5,0.5454545455,0.5217391304,120

@@ -11,6 +11,7 @@ const gameTeams = {
     5: ['team9', 'team10']
 };
 
+// Load CSV data and display probabilities after loading
 fetch(data)
     .then(response => {
         if (!response.ok) {
@@ -25,8 +26,15 @@ fetch(data)
             rows.push(values);
         }
         console.log('CSV data loaded:', rows);
+        
+        // Display probabilities after data is guaranteed to be loaded
+        displayTeamProbabilities();
     })
-    .catch(error => console.error('Error loading CSV file:', error));
+    .catch(error => {
+        console.error('Error loading CSV file:', error);
+        // Still try to display team names even if CSV fails
+        displayTeamProbabilities();
+    });
 
 function getGameNumber(teamId) {
     for (let game in gameTeams) {
@@ -83,15 +91,9 @@ function loadTeams() {
     if (resetButton) {
         resetButton.addEventListener('click', resetSelections);
     }
-
-    displayTeamProbabilities();
 }
 
 function displayTeamProbabilities() {
-    if (rows.length === 0) {
-        setTimeout(() => displayTeamProbabilities(), 100);
-        return;
-    }
     for (let i = 1; i <= 10; i++) {
         const teamId = `team${i}`;
         const textButtonElement = document.getElementById(`${teamId}-text`);
@@ -106,7 +108,14 @@ function displayTeamProbabilities() {
                 // Update the text content to include probability
                 textButtonElement.innerHTML = `
                 <p>Team ${i}</p>
-                <p>Probability: ${impliedProbability.toFixed(2)}</p>`;
+                <p>Probability: ${impliedProbability.toFixed(2)}</p>
+                <p>Money Odd Lines: ${teamData[5]}
+                `;
+            } else {
+                // Fallback if CSV data not available
+                textButtonElement.innerHTML = `
+                <p>Team ${i}</p>
+                <p>Loading...</p>`;
             }
         }
     }
@@ -118,27 +127,32 @@ function toggleTeamSelection(teamId) {
     const gameNumber = getGameNumber(teamId);
     
     if (selectedTeams.includes(teamId)) {
+        // Deselecting a team
         selectedTeams = selectedTeams.filter(team => team !== teamId);
         buttonElement.classList.remove('selected');
 
+        // Re-enable the other team in this game
         enableAllTeamsInGame(gameNumber);
 
+        // If we now have less than 3 teams, re-enable teams that were disabled due to 3-team limit
         if (selectedTeams.length < 3) {
             enableUnselectedTeams();
         }
         
         console.log(`${teamId} deselected from game ${gameNumber}`);
     } else {
- 
+        // Selecting a team
         if (selectedTeams.length >= 3) {
-            return;
+            return; // Cannot select more than 3 teams
         }
         
         selectedTeams.push(teamId);
         buttonElement.classList.add('selected');
         
+        // Disable the other team in this game
         disableOtherTeamInGame(teamId, gameNumber);
 
+        // If we now have 3 teams selected, disable all remaining unselected teams
         if (selectedTeams.length === 3) {
             disableUnselectedTeams();
         }
@@ -150,30 +164,34 @@ function toggleTeamSelection(teamId) {
 }
 
 function disableUnselectedTeams() {
-    // Get all team buttons
-    const allTeamButtons = document.querySelectorAll('[id^="team"]'); // Assuming team IDs start with "team"
+    const allTeamButtons = document.querySelectorAll('[id^="team"]');
     
     allTeamButtons.forEach(button => {
+        // Disable all unselected teams (ignore current disabled state)
         if (!selectedTeams.includes(button.id)) {
             button.disabled = true;
-            button.classList.add('disabled'); // Optional: add visual styling
+            button.classList.add('disabled');
         }
     });
 }
 
-// Helper function to re-enable all unselected teams
 function enableUnselectedTeams() {
-    // Get all team buttons
-    const allTeamButtons = document.querySelectorAll('[id^="team"]'); // Assuming team IDs start with "team"
+    const allTeamButtons = document.querySelectorAll('[id^="team"]');
     
     allTeamButtons.forEach(button => {
         if (!selectedTeams.includes(button.id)) {
-            button.disabled = false;
-            button.classList.remove('disabled'); // Remove visual styling
+            const gameNumber = getGameNumber(button.id);
+            // Check if this game already has a selected team
+            const gameHasSelection = gameTeams[gameNumber].some(teamId => selectedTeams.includes(teamId));
+            
+            // Only enable if this game doesn't have a selection
+            if (!gameHasSelection) {
+                button.disabled = false;
+                button.classList.remove('disabled');
+            }
         }
     });
 }
-
 
 function calculateBet() {
     console.log('Calculate button clicked');
@@ -198,7 +216,6 @@ function calculateBet() {
         console.log(`Implied Probability: ${results.impliedProbability.toFixed(2)}%`);
         console.log(`Book Probability: ${results.bookProbability.toFixed(2)}%`);
         
-        const selectedGames = selectedTeams.map(team => getGameNumber(team));
         const resultsElement = document.getElementById('results');
         if (resultsElement) {
             resultsElement.innerHTML = `
@@ -217,8 +234,10 @@ function calculateBet() {
 function resetSelections() {
     console.log('Reset button clicked');
 
+    // Clear selected teams array
     selectedTeams = [];
  
+    // Reset all team buttons to default state
     const allTeamButtons = document.querySelectorAll('[id^="team"]');
     allTeamButtons.forEach(button => {
         button.classList.remove('selected');
@@ -226,13 +245,14 @@ function resetSelections() {
         button.classList.remove('disabled');
     });
 
+    // Clear results display
     const resultsElement = document.getElementById('results');
     if (resultsElement) {
-        resultsElement.innerHTML = `
-        <h3>Results</h3>`;
+        resultsElement.innerHTML = '<h3>Results</h3>';
     }
     
     console.log('All selections reset');
 }
 
+// Initialize the application
 loadTeams();

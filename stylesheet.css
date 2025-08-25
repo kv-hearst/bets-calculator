@@ -77,7 +77,7 @@ body {
     p {
         font-size: 1.125rem;
         line-height: 1.75rem;
-        color: #414141;
+        /* color: #414141; */
         margin: 18px 0px 24px; 
         font-family: 'source-sans-pr-regular', Arial, Helvetica, sans-serif;
         font-weight: 300;
@@ -135,12 +135,13 @@ body {
     button:hover {
         background-color: #ddd;
     }
-    button:active {
-        background-color: #ccc;
-    }
     button.selected {
-        background-color: #1c58b8;
-        color: white;
+        /* background-color: #1c58b8; */
+        color: #333;
+        border: 2px solid #1c58b8;
+    }
+    button.selected p {
+        color: #333;
     }
     #calculate-button {
         margin-top: 20px;
@@ -161,7 +162,7 @@ body {
     }
 
 .disabled {
-    background-color: #6c757d;
+    background-color: #6c757d; 
     color: #dee2e6;
     cursor: not-allowed;
     opacity: 0.6;
