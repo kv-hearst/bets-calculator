@@ -96,72 +96,117 @@ function loadTeams() {
 function displayTeamProbabilities() {
     for (let i = 1; i <= 10; i++) {
         const teamId = `team${i}`;
-        const textButtonElement = document.getElementById(`${teamId}-text`);
-        
-        if (textButtonElement) {
-            // Find the team data in the CSV rows
+        const nameContainer = document.getElementById(`${teamId}-names`);
+        const probabilityContainer = document.getElementById(`${teamId}-probabilities`);
+        const moneylineContainer = document.getElementById(`${teamId}-moneylines`);
+
+        if (nameContainer && probabilityContainer && moneylineContainer) {
             const teamData = rows.find(row => row[0] === teamId);
             
-            if (teamData && teamData[3]) {
-                const impliedProbability = parseFloat(teamData[3]);
-                
-                // Update the text content to include probability
-                textButtonElement.innerHTML = `
-                <p>Team ${i}</p>
-                <p>Probability: ${impliedProbability.toFixed(2)}</p>
-                <p>Money Odd Lines: ${teamData[5]}
-                `;
-            } else {
-                // Fallback if CSV data not available
-                textButtonElement.innerHTML = `
-                <p>Team ${i}</p>
-                <p>Loading...</p>`;
+            if (teamData) {
+                nameContainer.textContent = `${teamData[1]}`;
+                probabilityContainer.textContent = `${(parseFloat(teamData[3]) * 100).toFixed(1)}%`;
+                moneylineContainer.textContent = `${teamData[5]}`;
             }
         }
     }
 }
 
+
+// function displayTeamProbabilities() {
+//     for (let i = 1; i <= 10; i++) {
+//         const teamId = `team${i}`;
+//         const textButtonElement = document.getElementById(`${teamId}-name`);
+        
+//         if (textButtonElement) {
+//             // Find the team data in the CSV rows
+//             const teamData = rows.find(row => row[0] === teamId);
+            
+//             if (teamData && teamData[3]) {
+//                 const impliedProbability = parseFloat(teamData[3]);
+                
+//                 // Update the text content to include probability
+//                 textButtonElement.innerHTML = `
+//                 <p>Team ${i}</p>
+//                 <p>Probability: ${impliedProbability.toFixed(2)}</p>
+//                 <p>Money Odd Lines: ${teamData[5]}
+//                 `;
+//             } else {
+//                 // Fallback if CSV data not available
+//                 textButtonElement.innerHTML = `
+//                 <p>Team ${i}</p>
+//                 <p>Loading...</p>`;
+//             }
+//         }
+//     }
+// }
+
 function toggleTeamSelection(teamId) {
     console.log(`Team ${teamId} button clicked`);
-    const buttonElement = document.getElementById(teamId);
-    const gameNumber = getGameNumber(teamId);
-    
-    if (selectedTeams.includes(teamId)) {
+    const probabilityButton = document.getElementById(`${teamId}-probabilities`);
+    const moneylineButton = document.getElementById(`${teamId}-moneylines`);
+
+    if (selectedTeams.includes(probabilityButton && moneylineButton)) {
         // Deselecting a team
         selectedTeams = selectedTeams.filter(team => team !== teamId);
-        buttonElement.classList.remove('selected');
-
-        // Re-enable the other team in this game
-        enableAllTeamsInGame(gameNumber);
-
-        // If we now have less than 3 teams, re-enable teams that were disabled due to 3-team limit
-        if (selectedTeams.length < 3) {
-            enableUnselectedTeams();
-        }
-        
-        console.log(`${teamId} deselected from game ${gameNumber}`);
-    } else {
+        probabilityButton.classList.remove('selected');
+        moneylineButton.classList.remove('selected');
+    }
+    else {
         // Selecting a team
         if (selectedTeams.length >= 3) {
             return; // Cannot select more than 3 teams
         }
-        
         selectedTeams.push(teamId);
-        buttonElement.classList.add('selected');
-        
-        // Disable the other team in this game
-        disableOtherTeamInGame(teamId, gameNumber);
-
-        // If we now have 3 teams selected, disable all remaining unselected teams
-        if (selectedTeams.length === 3) {
-            disableUnselectedTeams();
-        }
-
-        console.log(`${teamId} selected from game ${gameNumber}`);
+        probabilityButton.classList.add('selected');
+        moneylineButton.classList.add('selected');
     }
-    
     console.log('Currently selected teams:', selectedTeams);
 }
+
+
+
+
+
+    // const buttonElement = document.getElementById(teamId);
+    // const gameNumber = getGameNumber(teamId);
+    
+//     if (selectedTeams.includes(teamId)) {
+//         // Deselecting a team
+//         selectedTeams = selectedTeams.filter(team => team !== teamId);
+//         buttonElement.classList.remove('selected');
+
+//         // Re-enable the other team in this game
+//         enableAllTeamsInGame(gameNumber);
+
+//         // If we now have less than 3 teams, re-enable teams that were disabled due to 3-team limit
+//         if (selectedTeams.length < 3) {
+//             enableUnselectedTeams();
+//         }
+        
+//         console.log(`${teamId} deselected from game ${gameNumber}`);
+//     } else {
+//         // Selecting a team
+//         if (selectedTeams.length >= 3) {
+//             return; // Cannot select more than 3 teams
+//         }
+        
+//         selectedTeams.push(teamId);
+//         buttonElement.classList.add('selected');
+        
+//         // Disable the other team in this game
+//         disableOtherTeamInGame(teamId, gameNumber);
+
+//         // If we now have 3 teams selected, disable all remaining unselected teams
+//         if (selectedTeams.length === 3) {
+//             disableUnselectedTeams();
+//         }
+
+//         console.log(`${teamId} selected from game ${gameNumber}`);
+//     }
+    
+//     console.log('Currently selected teams:', selectedTeams);
+// }
 
 function disableUnselectedTeams() {
     const allTeamButtons = document.querySelectorAll('[id^="team"]');

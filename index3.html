@@ -26,9 +26,6 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        font-size: 1.125rem;
-        /* font-weight: bold; */
-        font-family: 'Effra', sans-serif;
     }
     .game-container {
         display: flex;
@@ -50,19 +47,10 @@
     }
 
     button:hover {
-        background-color: #f1d273;    
+        background-color: whitesmoke;
+       
+        
     }
-    button:disabled {
-        border: 0px solid #ccc;
-        cursor: not-allowed;
-    }
-   
-    button.selected {
-        background-color: #f1d273;
-        color: #000;
-        border-color: #d4b257;
-    }
-
     hr {
         border: none;
         border-top: 1px solid #ccc;
@@ -83,22 +71,6 @@
         width: 50px;
         height: 50px;
     }
-    #calculate-button {
-        width: 150px;
-        margin: 0 10px;
-        background-color: #1c58b8;
-        border: none;
-        color: white;
-        border-radius: 4px;
-    }
-    #reset-button {
-        width: 150px;
-        margin: 0 10px;
-        background-color: transparent;
-        border: 2px solid #1c58b8;
-        color: #1c58b8;
-        border-radius: 4px;
-    }
 
 </style>
 
@@ -116,11 +88,11 @@
                 <img src="https://placehold.co/50">
                 <h3></h3>    
             </div>
-            <div class="probability-container">
-                <button id="team1-probabilities"></button>    
+            <div class="button-container">
+                <button id=team1-probabilities"></button>    
             </div>
             <div class="moneyline-container">
-                <button id="team1-moneylines">+</button>
+                <button id="team1-moneylines"></button>
             </div>
         </div>
         
@@ -131,11 +103,11 @@
                 <img src="https://placehold.co/50">
                 <h3></h3>
             </div>
-            <div class="probability-container">
-                <button id="team2-probabilities"></button>    
+            <div class="button-container">
+                <button id=team2-probabilities"></button>    
             </div>
             <div class="moneyline-container">
-                <button id="team2-moneylines">-</button>
+                <button id="team2-moneylines"></button>
             </div>
         </div>
     </div>
@@ -146,13 +118,13 @@
         <div class="container" id="team3">
             <div class="name-container" id="team3-names">
                 <img src="https://placehold.co/100">
-                <h3></h3>    
+                <h3>Punxsutawney Groundhogs</h3>    
             </div>
-            <div class="probability-container">
-                <button id="team3-probabilities"></button>    
+            <div class="button-container">
+                <button id=team3-probabilities">22.9%</button>    
             </div>
             <div class="moneyline-container">
-                <button id="team3-moneylines">+</button>
+                <button id="team3-moneylines">+ 337</button>
             </div>
         </div>
         
@@ -161,13 +133,13 @@
         <div class="container" id="team4">
             <div class="name-container" id="team4-names">
                 <img src="https://placehold.co/100">
-                <h3></h3>
+                <h3>Louisville Paw Paws</h3>
             </div>
-            <div class="probability-container">
-                <button id="team4-probabilities"></button>    
+            <div class="button-container">
+                <button id=team4-probabilities">82.3%</button>    
             </div>
             <div class="moneyline-container">
-                <button id="team4-moneylines">-</button>
+                <button id="team4-moneylines">- 465</button>
             </div>
         </div>
     </div>
@@ -176,30 +148,30 @@
 
     <div class="game-container" id="game3">
         <div class="container" id="team5">
-            <div class="name-container" id="team5-names">
+            <div class="name-container" id="team-names">
                 <img src="https://placehold.co/100">
-                <h3></h3>    
+                <h3>Lancaster Lanternflies</h3>    
             </div>
-            <div class="probability-container">
-                <button id="team5-probabilities"></button>    
+            <div class="button-container">
+                <button id=team-probabilities">72.9%</button>    
             </div>
             <div class="moneyline-container">
-                <button id="team5-moneylines">+</button>
+                <button id="team-moneylines">+ 337</button>
             </div>
         </div>
         
         <div class="versus-linebreak">vs<hr></div>
 
         <div class="container" id="team6">
-            <div class="name-container" id="team6-names">
+            <div class="name-container" id="team-names">
                 <img src="https://placehold.co/100">
-                <h3></h3>
+                <h3>Honolulu Pineapple Pickers</h3>
             </div>
-            <div class="probability-container">
-                <button id="team6-probabilities"></button>    
+            <div class="button-container">
+                <button id=team-probabilities">34.4%</button>    
             </div>
             <div class="moneyline-container">
-                <button id="team6-moneylines">-</button>
+                <button id="team-moneylines">- 465</button>
             </div>
         </div>
     </div>
@@ -208,30 +180,30 @@
 
     <div class="game-container" id="game4">
         <div class="container" id="team7">
-            <div class="name-container" id="team7-names">
+            <div class="name-container" id="team-names">
                 <img src="https://placehold.co/100">
-                <h3></h3>    
+                <h3>Lancaster Lanternflies</h3>    
             </div>
-            <div class="probability-container">
-                <button id="team7-probabilities"></button>    
+            <div class="button-container">
+                <button id=team-probabilities">72.9%</button>    
             </div>
             <div class="moneyline-container">
-                <button id="team7-moneylines">+</button>
+                <button id="team-moneylines">+ 337</button>
             </div>
         </div>
         
         <div class="versus-linebreak">vs<hr></div>
 
         <div class="container" id="team8">
-            <div class="name-container" id="team8-names">
+            <div class="name-container" id="team-names">
                 <img src="https://placehold.co/100">
-                <h3></h3>
+                <h3>Honolulu Pineapple Pickers</h3>
             </div>
-            <div class="probability-container">
-                <button id="team8-probabilities"></button>    
+            <div class="button-container">
+                <button id=team-probabilities">34.4%</button>    
             </div>
             <div class="moneyline-container">
-                <button id="team8-moneylines">-</button>
+                <button id="team-moneylines">- 465</button>
             </div>
         </div>
     </div>
@@ -240,42 +212,36 @@
 
     <div class="game-container" id="game5">
         <div class="container" id="team9">
-            <div class="name-container" id="team9-names">
+            <div class="name-container" id="team-names">
                 <img src="https://placehold.co/100">
-                <h3></h3>    
+                <h3>Lancaster Lanternflies</h3>    
             </div>
-            <div class="probability-container">
-                <button id="team9-probabilities"></button>    
+            <div class="button-container">
+                <button id=team-probabilities">72.9%</button>    
             </div>
             <div class="moneyline-container">
-                <button id="team9-moneylines">+</button>
+                <button id="team-moneylines">+ 337</button>
             </div>
         </div>
         
         <div class="versus-linebreak">vs<hr></div>
 
         <div class="container" id="team10">
-            <div class="name-container" id="team10-names">
+            <div class="name-container" id="team-names">
                 <img src="https://placehold.co/100">
-                <h3></h3>
+                <h3>Honolulu Pineapple Pickers</h3>
             </div>
-            <div class="probability-container">
-                <button id="team10-probabilities"></button>    
+            <div class="button-container">
+                <button id=team-probabilities">34.4%</button>    
             </div>
             <div class="moneyline-container">
-                <button id="team10-moneylines">-</button>
+                <button id="team-moneylines">- 465</button>
             </div>
         </div>
     </div>
 
-    <div class="button-container">
-        <button id="calculate-button">Calculate</button>
-        <button id="reset-button">Reset</button>
-    </div>
-    <div class="results-container" id="results">
-        <h3>Results</h3>
-    </div>
+    <hr>
 
-<script src="betcalculator.js"></script>
+</div>
 </body>
 </html>
