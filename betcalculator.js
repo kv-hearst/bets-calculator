@@ -175,15 +175,20 @@ function calculateBet() {
         const teamRows = rows.filter(row => row[0] === teamId); 
         teamData.push(...teamRows);
     });
+
+    const stake = 90; // Define the stake value
+    
+
     
     if (teamData.length === 3) {
         const results = {
             impliedProbability: teamData.map(team => parseFloat(team[3])).reduce((acc, prob) => acc * prob, 1) * 100,
-            bookProbability: teamData.map(team => parseFloat(team[4])).reduce((acc, prob) => acc * prob, 1) * 100
+            bookProbability: teamData.map(team => parseFloat(team[4])).reduce((acc, prob) => acc * prob, 1) * 100,
+            wagerAmount: teamData.map(team => parseFloat(team[7])).reduce((acc, prob) => acc * prob, 1) * 90,
         };
         
-        console.log(`Implied Probability: ${results.impliedProbability.toFixed(2)}%`);
-        console.log(`Book Probability: ${results.bookProbability.toFixed(2)}%`);
+        console.log(`Implied Probability: ${results.impliedProbability.toFixed(1)}%`);
+        console.log(`Book Probability: ${results.bookProbability.toFixed(1)}%`);
         
         const resultsElement = document.getElementById('results');
         if (resultsElement) {
@@ -194,24 +199,11 @@ function calculateBet() {
                 
                     ${teamData.map(team => {
                         const gameNumber = getGameNumber(team[0]);
-                        return `<li>Game ${gameNumber}: ${team[1]} has a ${parseFloat(team[3] * 100).toFixed(0)}% chance of winning.</li>`;
+                        return `<li>Game ${gameNumber}: ${team[1]} has a <strong>${parseFloat(team[3] * 100).toFixed(0)}%</strong> chance of winning. If you bet $${stake} on this team, you would get $${team[6]} in profit.</li>`;
                     }).join('')}
-                
-
-                <p>For the 3-game parlay, the probability of all three teams winning is ${results.bookProbability.toFixed(0)}%. But in order to break even, you have to win this bet ${results.impliedProbability.toFixed(0)}% of the time.</p>
+                <p>For the 3-game parlay, the probability of all three teams winning is <strong>${results.bookProbability.toFixed(1)}%</strong>. But in order to break even, you have to win this bet <strong>${results.impliedProbability.toFixed(1)}%</strong> of the time. If you bet $${stake} on this parlay, you would get $${results.wagerAmount.toFixed(2)}</p>
             `;
         }
-
-        const gameResults = document.getElementById('game-results');
-        if (gameResults) {
-            gameResults.innerHTML = `
-            ${teamData.map(team => {
-                        const gameNumber = getGameNumber(team[0]);
-                        return `<li>Game ${gameNumber}: ${team[1]} has a ${parseFloat(team[3] * 100).toFixed(0)}% chance of winning.</li>`;
-                    }).join('')}
-            `;
-        }
-
 
         return results;
     } else {
