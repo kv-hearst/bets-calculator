@@ -17,7 +17,7 @@
     }
     .container {
         display: grid;
-        grid-template-columns: 2fr 1fr 1fr;
+        grid-template-columns: 2fr 1fr;
         gap: 16px;
         padding: 16px 20px;
         align-items: center;
@@ -34,6 +34,7 @@
         display: flex;
         flex-direction: column;
         margin-bottom: 40px;
+       
     }
     button {
         font-weight: bold;
@@ -99,6 +100,16 @@
         color: #1c58b8;
         border-radius: 4px;
     }
+    .results-container {
+        text-align: left;
+        background-color: whitesmoke;
+        height: 300px;
+
+    }
+    .game-results {
+        height: 100px;
+        background-color: lightgray;
+    }
 
 </style>
 
@@ -110,14 +121,15 @@
         <p>Let us test how bets are made by building a parlay of three below. Select three teams that you think have a better chance of winning based on their odds, then select "Calculate" to see how good your parlay really is.
         </p>
     </div>
+    <div class="container" id="header">
+        <h3>Game 1</h3>
+        <h3>Moneyline</h3>
+    </div>
     <div class="game-container" id="game1">
         <div class="container" id="team1">
             <div class="name-container" id="team1-names">
                 <img src="https://placehold.co/50">
                 <h3></h3>    
-            </div>
-            <div class="probability-container">
-                <button id="team1-probabilities"></button>    
             </div>
             <div class="moneyline-container">
                 <button id="team1-moneylines">+</button>
@@ -131,25 +143,25 @@
                 <img src="https://placehold.co/50">
                 <h3></h3>
             </div>
-            <div class="probability-container">
-                <button id="team2-probabilities"></button>    
-            </div>
             <div class="moneyline-container">
                 <button id="team2-moneylines">-</button>
             </div>
         </div>
+
+        <div class="game-results" id="game1-results" style="display: none;"></div>
+
     </div>
 
-    <hr>
+   
 
     <div class="game-container" id="game2">
+        <div class="container">
+            <h3>Game 2</h3>
+        </div>
         <div class="container" id="team3">
             <div class="name-container" id="team3-names">
                 <img src="https://placehold.co/100">
                 <h3></h3>    
-            </div>
-            <div class="probability-container">
-                <button id="team3-probabilities"></button>    
             </div>
             <div class="moneyline-container">
                 <button id="team3-moneylines">+</button>
@@ -163,25 +175,22 @@
                 <img src="https://placehold.co/100">
                 <h3></h3>
             </div>
-            <div class="probability-container">
-                <button id="team4-probabilities"></button>    
-            </div>
             <div class="moneyline-container">
                 <button id="team4-moneylines">-</button>
             </div>
         </div>
     </div>
 
-    <hr>
+    
 
     <div class="game-container" id="game3">
+        <div class="container">
+            <h3>Game 3</h3>
+        </div>
         <div class="container" id="team5">
             <div class="name-container" id="team5-names">
                 <img src="https://placehold.co/100">
                 <h3></h3>    
-            </div>
-            <div class="probability-container">
-                <button id="team5-probabilities"></button>    
             </div>
             <div class="moneyline-container">
                 <button id="team5-moneylines">+</button>
@@ -195,75 +204,8 @@
                 <img src="https://placehold.co/100">
                 <h3></h3>
             </div>
-            <div class="probability-container">
-                <button id="team6-probabilities"></button>    
-            </div>
             <div class="moneyline-container">
                 <button id="team6-moneylines">-</button>
-            </div>
-        </div>
-    </div>
-
-    <hr>
-
-    <div class="game-container" id="game4">
-        <div class="container" id="team7">
-            <div class="name-container" id="team7-names">
-                <img src="https://placehold.co/100">
-                <h3></h3>    
-            </div>
-            <div class="probability-container">
-                <button id="team7-probabilities"></button>    
-            </div>
-            <div class="moneyline-container">
-                <button id="team7-moneylines">+</button>
-            </div>
-        </div>
-        
-        <div class="versus-linebreak">vs<hr></div>
-
-        <div class="container" id="team8">
-            <div class="name-container" id="team8-names">
-                <img src="https://placehold.co/100">
-                <h3></h3>
-            </div>
-            <div class="probability-container">
-                <button id="team8-probabilities"></button>    
-            </div>
-            <div class="moneyline-container">
-                <button id="team8-moneylines">-</button>
-            </div>
-        </div>
-    </div>
-
-    <hr>
-
-    <div class="game-container" id="game5">
-        <div class="container" id="team9">
-            <div class="name-container" id="team9-names">
-                <img src="https://placehold.co/100">
-                <h3></h3>    
-            </div>
-            <div class="probability-container">
-                <button id="team9-probabilities"></button>    
-            </div>
-            <div class="moneyline-container">
-                <button id="team9-moneylines">+</button>
-            </div>
-        </div>
-        
-        <div class="versus-linebreak">vs<hr></div>
-
-        <div class="container" id="team10">
-            <div class="name-container" id="team10-names">
-                <img src="https://placehold.co/100">
-                <h3></h3>
-            </div>
-            <div class="probability-container">
-                <button id="team10-probabilities"></button>    
-            </div>
-            <div class="moneyline-container">
-                <button id="team10-moneylines">-</button>
             </div>
         </div>
     </div>
