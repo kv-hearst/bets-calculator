@@ -51,7 +51,8 @@
     }
 
     button:hover {
-        background-color: whitesmoke;    
+        background-color: whitesmoke;  
+        border: 0px solid #ccc;  
     }
     button.disabled {
         border: 0px solid #ccc;
@@ -113,7 +114,7 @@
     .results-container {
         text-align: left;
         padding: 16px;
-        border: 2px solid #1c58b8;
+        /* border: 3px solid #1c58b8; */
         border-radius: 4px;
         background-color: #1c58b8;
         animation: slideInDown 0.3s ease-out;
@@ -170,7 +171,7 @@
     <div class="game-container" id="game1">
         <div class="container" id="team1">
             <div class="name-container" id="team1-names">
-                <img src="https://placehold.co/50">
+                <!-- <img src="https://placehold.co/50"> -->
                 <h3></h3>    
             </div>
             <div class="moneyline-container">
@@ -182,7 +183,7 @@
     
         <div class="container" id="team2">
             <div class="name-container" id="team2-names">
-                <img src="https://placehold.co/50">
+                <!-- <img src="https://placehold.co/50"> -->
                 <h3></h3>
             </div>
             <div class="moneyline-container">
@@ -202,7 +203,7 @@
         </div>
         <div class="container" id="team3">
             <div class="name-container" id="team3-names">
-                <img src="https://placehold.co/100">
+                <!-- <img src="https://placehold.co/100"> -->
                 <h3></h3>    
             </div>
             <div class="moneyline-container">
@@ -214,7 +215,7 @@
 
         <div class="container" id="team4">
             <div class="name-container" id="team4-names">
-                <img src="https://placehold.co/100">
+                <!-- <img src="https://placehold.co/100"> -->
                 <h3></h3>
             </div>
             <div class="moneyline-container">
@@ -233,7 +234,7 @@
         </div>
         <div class="container" id="team5">
             <div class="name-container" id="team5-names">
-                <img src="https://placehold.co/100">
+                <!-- <img src="https://placehold.co/100"> -->
                 <h3></h3>    
             </div>
             <div class="moneyline-container">
@@ -245,7 +246,7 @@
 
         <div class="container" id="team6">
             <div class="name-container" id="team6-names">
-                <img src="https://placehold.co/100">
+                <!-- <img src="https://placehold.co/100"> -->
                 <h3></h3>
             </div>
             <div class="moneyline-container">
@@ -260,6 +261,9 @@
     <div class="button-container">
         <button id="calculate-button">Calculate</button>
         <button id="reset-button">Reset</button>
+    </div>
+    <div class="footnote" style="text-align:left; margin-top:20px; font-size:0.9rem; color:#414141;">
+        <p>Interactive: Katrina Ventura/Hearst TV • Source: Hearst Television Data Team</a></p>
     </div>
     <div class="results-container" id="results" style="display: none;">     
     </div>

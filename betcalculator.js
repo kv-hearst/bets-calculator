@@ -194,7 +194,7 @@ function createGameResultsDropdown(gameNumber, selectedTeamData) {
         return;
     }
     const dropdownHTML = `
-    <p>You selected ${selectedTeamData.teamName}! This is ${favoredTeam} to win, as sportsbooks say the probability of them winning is <strong>${(selectedTeamData.bookProbability * 100).toFixed(0)}%</strong>. But in order to break even, this team has to win <strong>${(selectedTeamData.probability * 100).toFixed(0)}%</strong> of the time. If you bet $90 on this team, you would get $${selectedTeamData.profit} in profit.</p>
+    <p>You selected ${selectedTeamData.teamName}! This is ${favoredTeam} to win. Sportsbooks give them a ${(selectedTeamData.bookProbability * 100).toFixed(0)}% chance of winning, but they need to win <span style="font-weight: bold;">${(selectedTeamData.probability * 100).toFixed(0)}%</span> of the time to break even. A $90 bet would yield <span style="font-weight: bold;">$${selectedTeamData.profit}</span> in profit.</p>
     `;
 
 gameResultsDiv.innerHTML = dropdownHTML;
@@ -243,7 +243,7 @@ function calculateBet() {
 
         const resultsDropdown = `
         <h3>Results</h3>
-                <p>If you bet on a 3-game parlay, then probability of all three teams winning is <span style="font-weight: bold;">${results.bookProbability.toFixed(1)}%</span>. But in order to break even, you have to win this bet <span style="font-weight: bold;">${results.impliedProbability.toFixed(1)}%</span> of the time. If you bet $${stake} on this parlay, you would get $${results.wagerAmount.toFixed(2)}</p>
+                <p>Betting on a 3-game parlay lowers your chances of winning to ${results.bookProbability.toFixed(1)}%, but you need <span style="font-weight: bold;">${results.impliedProbability.toFixed(1)}%</span> to break even. However, the payout is much higher. A $${stake} on this parlay, would return <span style="font-weight: bold;">$${results.wagerAmount.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>.</p>
             `;
         resultsElement.innerHTML = resultsDropdown;
         resultsElement.style.display = 'block';
@@ -269,6 +269,7 @@ function resetSelections() {
     const resultsElement = document.getElementById('results');
     if (resultsElement) {
         resultsElement.innerHTML = '';
+        resultsElement.style.display = 'none';
     }
     
     console.log('All selections reset');
