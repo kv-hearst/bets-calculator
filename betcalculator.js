@@ -271,6 +271,13 @@ function resetSelections() {
         resultsElement.innerHTML = '';
         resultsElement.style.display = 'none';
     }
+
+    const gameResultsDivs = document.querySelectorAll('[id^="game"][id$="-results"]');
+    gameResultsDivs.forEach(div => {
+        div.innerHTML = '';
+        div.style.display = 'none';
+        div.classList.remove('show');
+    });
     
     console.log('All selections reset');
 }
