@@ -217,7 +217,7 @@ function calculateBet() {
     console.log('Calculate button clicked');
     
     if (selectedTeams.length !== 3) {
-        alert('Please select exactly 3 teams from 3 different games.');
+        // alert('Please select exactly 3 teams from 3 different games.');
         return;
     }
     
@@ -240,16 +240,14 @@ function calculateBet() {
         console.log(`Book Probability: ${results.bookProbability.toFixed(1)}%`);
         
         const resultsElement = document.getElementById('results');
-        if (resultsElement) {
-            resultsElement.innerHTML = `
-                <h3>Results</h3>
+
+        const resultsDropdown = `
+        <h3>Results</h3>
                 <p>If you bet on a 3-game parlay, then probability of all three teams winning is <span style="font-weight: bold;">${results.bookProbability.toFixed(1)}%</span>. But in order to break even, you have to win this bet <span style="font-weight: bold;">${results.impliedProbability.toFixed(1)}%</span> of the time. If you bet $${stake} on this parlay, you would get $${results.wagerAmount.toFixed(2)}</p>
             `;
-        }
-
-        return results;
-    } else {
-        alert('Error: Could not find data for all selected teams.');
+        resultsElement.innerHTML = resultsDropdown;
+        resultsElement.style.display = 'block';
+        resultsElement.classList.add('show');
     }
 }
 
