@@ -243,7 +243,7 @@ function calculateBet() {
         if (resultsElement) {
             resultsElement.innerHTML = `
                 <h3>Results</h3>
-                <p>If you bet on a 3-game parlay, the probability of all three teams winning is <strong>${results.bookProbability.toFixed(1)}%</strong>. But in order to break even, you have to win this bet <strong>${results.impliedProbability.toFixed(1)}%</strong> of the time. If you bet $${stake} on this parlay, you would get $${results.wagerAmount.toFixed(2)}</p>
+                <p>If you bet on a 3-game parlay, then probability of all three teams winning is <span style="font-weight: bold;">${results.bookProbability.toFixed(1)}%</span>. But in order to break even, you have to win this bet <span style="font-weight: bold;">${results.impliedProbability.toFixed(1)}%</span> of the time. If you bet $${stake} on this parlay, you would get $${results.wagerAmount.toFixed(2)}</p>
             `;
         }
 
@@ -270,7 +270,7 @@ function resetSelections() {
     // Clear results display
     const resultsElement = document.getElementById('results');
     if (resultsElement) {
-        resultsElement.innerHTML = '<h3>Results</h3>';
+        resultsElement.innerHTML = '';
     }
     
     console.log('All selections reset');

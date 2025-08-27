@@ -68,7 +68,6 @@
     button.selected {
         background-color: #f1d273;
         color: #000;
-        border-color: #d4b257;
     }
     hr {
         border: none;
@@ -90,6 +89,11 @@
         width: 50px;
         height: 50px;
     }
+    .button-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
     #calculate-button {
         width: 150px;
         margin: 0 10px;
@@ -109,13 +113,20 @@
     .results-container {
         text-align: left;
         padding: 16px;
-
+        border: 2px solid #1c58b8;
+        border-radius: 4px;
+        background-color: #1c58b8;
+        animation: slideInDown 0.3s ease-out;
+    }
+    .results-container h2, .results-container h3, .results-container p {
+        color: white;
     }
     .game-results {
         margin-top: 12px;
         padding: 16px;
         transition: all 0.3s ease;
         animation: slideInDown 0.3s ease-out;
+        background-color: #f9f9f9;
     }
 
     @keyframes slideInDown {
@@ -250,8 +261,7 @@
         <button id="calculate-button">Calculate</button>
         <button id="reset-button">Reset</button>
     </div>
-    <div class="results-container" id="results">
-        <h3>Results</h3>
+    <div class="results-container" id="results">     
     </div>
 
 <script src="betcalculator.js"></script>
