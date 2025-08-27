@@ -1,11 +1,11 @@
-team,name,game,probability-implied,probability-book,money-odd-lines,90-stake-wager,decimal-odds
-team1,San Antonio Squirrels,1,0.406504065,0.3640392529,+146,131.40,2.46
-team2,Salt Lake City Shakers,1,0.7101449275,0.6359607471,-245,36.73,1.408163265
-team3,Punxsutawney Groundhogs,2,0.2288329519,0.217554533,+337,303.30,4.37
-team4,Louisville Paw Paws,2,0.8230088496,0.782445467,-465,19.35,1.215053763
-team5,Lancaster Lanternflies,3,0.72899729,0.6796290991,-269,33.46,1.371747212
-team6,Honolulu Pineapple Pickers,3,0.3436426117,0.3203709009,+191,171.90,2.91
-team7,Providence Pigeons,4,0.75,0.724137931,-300,30.00,1.333333333
-team8,Oklahoma City Twisters,4,0.2857142857,0.275862069,+250,225.00,3.5
-team9,Anchorage Icicles,5,0.5,0.4782608696,+100,90.00,2
-team10,Albuquerque Jewels,5,0.5454545455,0.5217391304,-120,75.00,1.833333333
+team,name,game,probability-implied,probability-book,money-odd-lines,90-stake-wager,decimal-odds,favored-team
+team1,San Antonio Squirrels,1,0.406504065,0.3640392529,+146,131.40,2.46,FALSE
+team2,Salt Lake City Shakers,1,0.7101449275,0.6359607471,-245,36.73,1.408163265,TRUE
+team3,Punxsutawney Groundhogs,2,0.2288329519,0.217554533,+337,303.30,4.37,FALSE
+team4,Louisville Paw Paws,2,0.8230088496,0.782445467,-465,19.35,1.215053763,TRUE
+team5,Lancaster Lanternflies,3,0.72899729,0.6796290991,-269,33.46,1.371747212,TRUE
+team6,Honolulu Pineapple Pickers,3,0.3436426117,0.3203709009,+191,171.90,2.91,FALSE
+team7,Providence Pigeons,4,0.75,0.724137931,-300,30.00,1.333333333,TRUE
+team8,Oklahoma City Twisters,4,0.2857142857,0.275862069,+250,225.00,3.5,FALSE
+team9,Anchorage Icicles,5,0.5,0.4782608696,+100,90.00,2,FALSE
+team10,Albuquerque Jewels,5,0.5454545455,0.5217391304,-120,75.00,1.833333333,TRUE

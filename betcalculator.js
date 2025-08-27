@@ -4,11 +4,9 @@ let selectedTeams = [];
 
 // Define which teams belong to which game
 const gameTeams = {
-    1: ['team1', 'team2'],
-    2: ['team3', 'team4'],
-    3: ['team5', 'team6'],
-    4: ['team7', 'team8'],
-    5: ['team9', 'team10']
+    1: ['team1-moneylines', 'team2-moneylines'],
+    2: ['team3-moneylines', 'team4-moneylines'],
+    3: ['team5-moneylines', 'team6-moneylines']
 };
 
 // Load CSV data and display probabilities after loading
@@ -36,9 +34,21 @@ fetch(data)
         displayTeamProbabilities();
     });
 
-function getGameNumber(teamId) {
+function getGameNumber(element) {
+    const gameContainer = element.closest('.game-container');
+    if (gameContainer) {
+        return parseInt(gameContainer.id.replace('game', ''));
+    }
+    return null;
+}
+
+// Helper function to get game number from team ID string
+function getGameNumberFromTeamId(teamId) {
+    // Convert team1 to team1-moneylines for lookup
+    const buttonId = teamId.includes('-moneylines') ? teamId : `${teamId}-moneylines`;
+    
     for (let game in gameTeams) {
-        if (gameTeams[game].includes(teamId)) {
+        if (gameTeams[game].includes(buttonId)) {
             return parseInt(game);
         }
     }
@@ -47,36 +57,42 @@ function getGameNumber(teamId) {
 
 function disableOtherTeamInGame(selectedTeamId, gameNumber) {
     const teamsInGame = gameTeams[gameNumber];
-    teamsInGame.forEach(teamId => {
-        if (teamId !== selectedTeamId) {
-            const buttonElement = document.getElementById(teamId);
-            if (buttonElement) {
-                buttonElement.disabled = true;
-                buttonElement.classList.add('disabled');
+    if (teamsInGame) {
+        teamsInGame.forEach(teamId => {
+            if (teamId !== selectedTeamId) {
+                const buttonElement = document.getElementById(teamId);
+                if (buttonElement) {
+                    buttonElement.disabled = true;
+                    buttonElement.classList.add('disabled');
+                    console.log('Disabled team:', teamId);
+                }
             }
-        }
-    });
+        });
+    }
 }
 
 function enableAllTeamsInGame(gameNumber) {
     const teamsInGame = gameTeams[gameNumber];
-    teamsInGame.forEach(teamId => {
-        const buttonElement = document.getElementById(teamId);
-        if (buttonElement) {
-            buttonElement.disabled = false;
-            buttonElement.classList.remove('disabled');
-        }
-    });
+    if (teamsInGame) {
+        teamsInGame.forEach(teamId => {
+            const buttonElement = document.getElementById(teamId);
+            if (buttonElement) {
+                buttonElement.disabled = false;
+                buttonElement.classList.remove('disabled');
+            }
+        });
+    }
 }
 
 function loadTeams() {
+    // FIXED: Use correct button IDs
     for (let i = 1; i <= 10; i++) {
-        const teamButton = document.getElementById(`team${i}`);
+        const teamButton = document.getElementById(`team${i}-moneylines`);
         if (teamButton) {
             teamButton.addEventListener('click', function() {
                 // Only respond if button is not disabled
                 if (!teamButton.disabled) {
-                    toggleTeamSelection(`team${i}`);
+                    toggleTeamSelection(`team${i}`); // Pass base team ID
                 }
             });
         }
@@ -103,64 +119,99 @@ function displayTeamProbabilities() {
             const teamData = rows.find(row => row[0] === teamId);
             
             if (teamData) {
-                nameContainer.textContent = `${teamData[1]}`;
+                nameContainer.querySelector('h3').textContent = `${teamData[1]}`;
                 moneylineContainer.textContent = `${teamData[5]}`;
             }
         }
     }
 }
 
-
 function toggleTeamSelection(teamId) {
     console.log(`Team ${teamId} button clicked`);
     const moneylineButton = document.getElementById(`${teamId}-moneylines`);
+    const gameNumber = getGameNumberFromTeamId(teamId);
 
-    if (selectedTeams.includes(moneylineButton)) {
+    if (selectedTeams.includes(teamId)) {
         // Deselecting a team
         selectedTeams = selectedTeams.filter(team => team !== teamId);
         moneylineButton.classList.remove('selected');
-    }
-    else {
+        
+        // Re-enable other team in this game
+        if (gameNumber) {
+            hideGameResultsDropdown(gameNumber);
+            enableAllTeamsInGame(gameNumber);
+        }
+    } else {
         // Selecting a team
         if (selectedTeams.length >= 3) {
-            return; // Cannot select more than 3 teams
+            alert('Cannot select more than 3 teams');
+            return;
         }
+        
+        // Check if this game already has a selected team
+        const gameAlreadyHasSelection = selectedTeams.some(selectedTeamId => {
+            return getGameNumberFromTeamId(selectedTeamId) === gameNumber;
+        });
+        
+        if (gameAlreadyHasSelection) {
+            alert('You can only select one team per game');
+            return;
+        }
+        
         selectedTeams.push(teamId);
         moneylineButton.classList.add('selected');
+        
+
+        const teamData = rows.find(row => row[0] === teamId);
+        if (teamData) {
+            const selectedTeamData = {
+                teamName: teamData[1],
+                profit: teamData[6],
+                probability: teamData[3],
+                favoredTeam: teamData[8],
+                bookProbability: teamData[4] 
+            };
+            
+            // Create and show dropdown
+            createGameResultsDropdown(gameNumber, selectedTeamData);
+        }
+
+        // Disable other team in this game
+        if (gameNumber) {
+            disableOtherTeamInGame(`${teamId}-moneylines`, gameNumber);
+        }
     }
     console.log('Currently selected teams:', selectedTeams);
 }
 
+function createGameResultsDropdown(gameNumber, selectedTeamData) {
+    const gameResultsDiv = document.getElementById(`game${gameNumber}-results`);
 
-function disableUnselectedTeams() {
-    const allTeamButtons = document.querySelectorAll('[id^="team"]');
-    
-    allTeamButtons.forEach(button => {
-        // Disable all unselected teams (ignore current disabled state)
-        if (!selectedTeams.includes(button.id)) {
-            button.disabled = true;
-            button.classList.add('disabled');
-        }
-    });
+    const favoredTeam = selectedTeamData.favoredTeam === 'TRUE' ? "the <span style='color: green;'>favored team</span>" : "<span style='color: red;'>not the favored team</span>";
+
+    if (!gameResultsDiv) {
+        console.error(`Game results div for game ${gameNumber} not found`);
+        return;
+    }
+    const dropdownHTML = `
+    <p>You selected ${selectedTeamData.teamName}! This is ${favoredTeam} to win, as sportsbooks say the probability of them winning is <strong>${(selectedTeamData.bookProbability * 100).toFixed(0)}%</strong>. But in order to break even, this team has to win <strong>${(selectedTeamData.probability * 100).toFixed(0)}%</strong> of the time. If you bet $90 on this team, you would get $${selectedTeamData.profit} in profit.</p>
+    `;
+
+gameResultsDiv.innerHTML = dropdownHTML;
+gameResultsDiv.style.display = 'block';
+gameResultsDiv.classList.add('show');
+
 }
 
-function enableUnselectedTeams() {
-    const allTeamButtons = document.querySelectorAll('[id^="team"]');
+function hideGameResultsDropdown(gameNumber) {
+    const gameResultsDiv = document.getElementById(`game${gameNumber}-results`);
     
-    allTeamButtons.forEach(button => {
-        if (!selectedTeams.includes(button.id)) {
-            const gameNumber = getGameNumber(button.id);
-            // Check if this game already has a selected team
-            const gameHasSelection = gameTeams[gameNumber].some(teamId => selectedTeams.includes(teamId));
-            
-            // Only enable if this game doesn't have a selection
-            if (!gameHasSelection) {
-                button.disabled = false;
-                button.classList.remove('disabled');
-            }
-        }
-    });
+    if (!gameResultsDiv) return;
+    
+    // Remove show class to trigger hide animation
+    gameResultsDiv.classList.remove('show');
 }
+
 
 function calculateBet() {
     console.log('Calculate button clicked');
@@ -178,8 +229,6 @@ function calculateBet() {
 
     const stake = 90; // Define the stake value
     
-
-    
     if (teamData.length === 3) {
         const results = {
             impliedProbability: teamData.map(team => parseFloat(team[3])).reduce((acc, prob) => acc * prob, 1) * 100,
@@ -194,14 +243,7 @@ function calculateBet() {
         if (resultsElement) {
             resultsElement.innerHTML = `
                 <h3>Results</h3>
-              
-                <p>The probability of you winning for each game:</p>
-                
-                    ${teamData.map(team => {
-                        const gameNumber = getGameNumber(team[0]);
-                        return `<li>Game ${gameNumber}: ${team[1]} has a <strong>${parseFloat(team[3] * 100).toFixed(0)}%</strong> chance of winning. If you bet $${stake} on this team, you would get $${team[6]} in profit.</li>`;
-                    }).join('')}
-                <p>For the 3-game parlay, the probability of all three teams winning is <strong>${results.bookProbability.toFixed(1)}%</strong>. But in order to break even, you have to win this bet <strong>${results.impliedProbability.toFixed(1)}%</strong> of the time. If you bet $${stake} on this parlay, you would get $${results.wagerAmount.toFixed(2)}</p>
+                <p>If you bet on a 3-game parlay, the probability of all three teams winning is <strong>${results.bookProbability.toFixed(1)}%</strong>. But in order to break even, you have to win this bet <strong>${results.impliedProbability.toFixed(1)}%</strong> of the time. If you bet $${stake} on this parlay, you would get $${results.wagerAmount.toFixed(2)}</p>
             `;
         }
 
@@ -218,7 +260,7 @@ function resetSelections() {
     selectedTeams = [];
  
     // Reset all team buttons to default state
-    const allTeamButtons = document.querySelectorAll('[id^="team"]');
+    const allTeamButtons = document.querySelectorAll('[id$="-moneylines"]');
     allTeamButtons.forEach(button => {
         button.classList.remove('selected');
         button.disabled = false;
@@ -235,4 +277,6 @@ function resetSelections() {
 }
 
 // Initialize the application
-loadTeams();
+document.addEventListener('DOMContentLoaded', function() {
+    loadTeams();
+});
