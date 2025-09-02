@@ -243,7 +243,7 @@ function calculateBet() {
 
         const resultsDropdown = `
         <h3>Results</h3>
-                <p>Betting on a 3-game parlay lowers your chances of winning to ${results.bookProbability.toFixed(1)}%, but you need <span style="font-weight: bold;">${results.impliedProbability.toFixed(1)}%</span> to break even. However, the payout is much higher. A $${stake} on this parlay, would return <span style="font-weight: bold;">$${results.wagerAmount.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>.</p>
+                <p>Betting on a 3-game parlay your chances of winning is ${results.bookProbability.toFixed(1)}%, but you need <span style="font-weight: bold;">${results.impliedProbability.toFixed(1)}%</span> to break even. A $${stake} stake on this parlay, would return <span style="font-weight: bold;">$${results.wagerAmount.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>.</p>
             `;
         resultsElement.innerHTML = resultsDropdown;
         resultsElement.style.display = 'block';
